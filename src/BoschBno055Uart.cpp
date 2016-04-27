@@ -224,14 +224,14 @@ bool BoschBno055Uart::readIMU(BNO055Register reg, uint8_t *data, unsigned length
 		std::vector<uint8_t> data_in;
 		serial_.read(data_in,2+length);
 
-	if(data[0]==0xBB && data[1]==length)
+	if(data_in[0]==0xBB && data_in[1]==length)
 	{
 		memcpy(data,data_in.data()+2,length);
 		return false;
 	}
 	else
 	{
-		ROS_ERROR_STREAM("Got "<<std::hex<<data[0]<<" Len/Error:"<<std::dec<<data[1]);
+		ROS_ERROR_STREAM("Got "<<std::hex<<data_in[0]<<" Len/Error:"<<std::dec<<data_in[1]);
 		return true;
 	}
 }
