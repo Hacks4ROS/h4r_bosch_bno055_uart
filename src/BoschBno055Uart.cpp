@@ -45,7 +45,7 @@ BoschBno055Uart::BoschBno055Uart()
   msg_imu_raw_.angular_velocity_covariance[0]=-1;
   msg_imu_raw_.linear_acceleration_covariance[0]=-1;
 
-  std::string serial_device;
+  std::string serial_device="/dev/ttyUSB0";
   nh_.param("serial_device", serial_device);
 
 
