@@ -70,12 +70,6 @@ int BoschBno055Uart::run()
 	serial_.open();
 	serial_.flush(); //flush io buffers
 
-	if(writeIMUByte(PAGE_ID,1))
-	{
-		ROS_ERROR("Could not write register page 1");
-		exit(1);
-	}
-
 	if(writeIMUByte(PAGE0_OPR_MODE,OP_MODE_CONFIG))
 	{
 		ROS_ERROR("Could not write config mode");
@@ -91,6 +85,12 @@ int BoschBno055Uart::run()
 	if(writeIMUByte(PAGE_ID,0))
 	{
 		ROS_ERROR("Could not write register page 0");
+		exit(1);
+	}
+
+	if(writeIMUByte(PAGE0_SYS_TRIGGER,0x00))
+	{
+		ROS_ERROR("Could not write sys trigger");
 		exit(1);
 	}
 
@@ -118,11 +118,6 @@ int BoschBno055Uart::run()
 		exit(1);
 	}
 
-	if(writeIMUByte(PAGE0_SYS_TRIGGER,0x00))
-	{
-		ROS_ERROR("Could not write sys trigger");
-		exit(1);
-	}
 
 
 	ImuData imu_data;
