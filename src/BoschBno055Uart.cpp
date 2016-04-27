@@ -209,7 +209,7 @@ bool BoschBno055Uart::writeIMU(BNO055Register reg,const void *data, unsigned len
 
 	if(serial_.read(in_data,2)==2)
 	{
-		return !(in_data[0]==0xBB && in_data[1]==0x01);
+		return !(in_data[0]==0xEE && in_data[1]==0x01);
 	}
 
 	return true;
