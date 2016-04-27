@@ -231,6 +231,7 @@ bool BoschBno055Uart::readIMU(BNO055Register reg, uint8_t *data, unsigned length
 	}
 	else
 	{
+		ROS_ERROR_STREAM("Got "<<std::hex<<data[0]<<" Len/Error:"<<std::dec<<data[1]);
 		return true;
 	}
 }
