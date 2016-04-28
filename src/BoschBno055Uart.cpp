@@ -37,13 +37,16 @@ BoschBno055Uart::BoschBno055Uart()
   msg_temperature_.header.frame_id=frame_id;
 
   //Init covariances
-  msg_imu_.orientation_covariance[0]=-1;
-  msg_imu_.angular_velocity_covariance[0]=-1;
-  msg_imu_.linear_acceleration_covariance[0]=-1;
+  for (int n = 0; n < 9; ++n)
+  {
+	  msg_imu_.orientation_covariance[n]=-1;
+	  msg_imu_.angular_velocity_covariance[n]=-1;
+	  msg_imu_.linear_acceleration_covariance[n]=-1;
+	  msg_imu_raw_.orientation_covariance[n]=-1;
+	  msg_imu_raw_.angular_velocity_covariance[n]=-1;
+	  msg_imu_raw_.linear_acceleration_covariance[n]=-1;
+  }
 
-  msg_imu_raw_.orientation_covariance[0]=-1;
-  msg_imu_raw_.angular_velocity_covariance[0]=-1;
-  msg_imu_raw_.linear_acceleration_covariance[0]=-1;
 
   std::string serial_device="/dev/ttyUSB0";
   nh_.param("serial_device", serial_device);
