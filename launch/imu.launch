@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="h4r_bosch_bno055_uart" type="bosch_bno055_node" name="imu_bosch" output="screen">
+		<param name="serial_device" value="/dev/ttyUSB0" />
+		<param name="rate" value="100" />		
+	</node>
+</launch>
