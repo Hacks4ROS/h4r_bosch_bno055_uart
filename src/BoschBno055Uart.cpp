@@ -1,6 +1,7 @@
 
 #include "BoschBno055Uart.h"
 #include <netinet/in.h>
+#include <boost/detail/endian.hpp>
 
 
 #define    ACCEL_FCT 1000.0
@@ -137,11 +138,13 @@ int BoschBno055Uart::run()
 		if(!readIMU(PAGE0_ACC_DATA_X_LSB,(uint8_t*)&imu_data,46))
 		{
 
-			//Fix byte order
+			#ifndef BOOST_LITTLE_ENDIAN
+			//Swap bytes if necessary
 			for (int n = 0; n < 22; ++n)
 			{
-				imu_data.nthos_array[n]=ntohs(imu_data.nthos_array[n]);
+				imu_data.nthos_array[n]=le16toh(imu_data.nthos_array[n]);
 			}
+			#endif
 
 			//IMU raw
 			msg_imu_raw_.header.stamp=ros::Time::now();
@@ -174,7 +177,6 @@ int BoschBno055Uart::run()
 			//Temperature
 			msg_temperature_.header.stamp=ros::Time::now();
 			msg_temperature_.temperature=imu_data.temperature;
-
 
 			pub_imu_.publish(msg_imu_);
 			pub_imu_raw_.publish(msg_imu_raw_);
