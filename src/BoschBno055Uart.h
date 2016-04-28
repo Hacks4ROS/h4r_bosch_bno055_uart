@@ -200,31 +200,35 @@ private:
 
 	typedef struct
 	{
-		struct
+		union
 		{
-			uint16_t AccelerationDataX;
-			uint16_t AccelerationDataY;
-			uint16_t AccelerationDataZ;
-			uint16_t MagnetometerDataX;
-			uint16_t MagnetometerDataY;
-			uint16_t MagnetometerDataZ;
-			uint16_t GyroscopeDataX;
-			uint16_t GyroscopeDataY;
-			uint16_t GyroscopeDataZ;
-			uint16_t HeadingData;
-			uint16_t RollData;
-			uint16_t PitchData;
-			uint16_t QuaternionwData;
-			uint16_t QuaternionxData;
-			uint16_t QuaternionyData;
-			uint16_t QuaternionzData;
-			uint16_t LinearAccelerationDataX;
-			uint16_t LinearAccelerationDataY;
-			uint16_t LinearAccelerationDataZ;
-			uint16_t GravityVectorDataX;
-			uint16_t GravityVectorDataY;
-			uint16_t GravityVectorDataZ;
-		}imu;
+			struct
+			{
+				uint16_t AccelerationDataX;//0 1
+				uint16_t AccelerationDataY;//2 3
+				uint16_t AccelerationDataZ;//4 5
+				uint16_t MagnetometerDataX;//6 7
+				uint16_t MagnetometerDataY;//8 9
+				uint16_t MagnetometerDataZ;//10 11
+				uint16_t GyroscopeDataX;//12 13
+				uint16_t GyroscopeDataY;//14 15
+				uint16_t GyroscopeDataZ;//16 17
+				uint16_t HeadingData;//18 19
+				uint16_t RollData;//20 21
+				uint16_t PitchData;//22 23
+				uint16_t QuaternionwData;// 24 25
+				uint16_t QuaternionxData;// 26 27
+				uint16_t QuaternionyData;// 28 29
+				uint16_t QuaternionzData;// 30 31
+				uint16_t LinearAccelerationDataX;//32 33
+				uint16_t LinearAccelerationDataY;//34 35
+				uint16_t LinearAccelerationDataZ;//36 37
+				uint16_t GravityVectorDataX;//38 39
+				uint16_t GravityVectorDataY;//40 41
+				uint16_t GravityVectorDataZ;//42 43
+			}imu;
+			uint16_t nthos_array[22];
+		};
 		uint8_t temperature;
 		uint8_t calibration_status;
 	}ImuData;

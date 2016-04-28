@@ -133,36 +133,43 @@ int BoschBno055Uart::run()
 		}
 
 
+
 		if(!readIMU(PAGE0_ACC_DATA_X_LSB,(uint8_t*)&imu_data,46))
 		{
 
+			//Fix byte order
+			for (int n = 0; n < 22; ++n)
+			{
+				imu_data.nthos_array[n]=ntohs(imu_data.nthos_array[n]);
+			}
+
 			//IMU raw
 			msg_imu_raw_.header.stamp=ros::Time::now();
-			msg_imu_raw_.linear_acceleration.x=((double)ntohs(imu_data.imu.AccelerationDataX))/ACCEL_FCT;
-			msg_imu_raw_.linear_acceleration.y=((double)ntohs(imu_data.imu.AccelerationDataY))/ACCEL_FCT;
-			msg_imu_raw_.linear_acceleration.z=((double)ntohs(imu_data.imu.AccelerationDataZ))/ACCEL_FCT;
-			msg_imu_raw_.angular_velocity.x=((double)ntohs(imu_data.imu.GyroscopeDataX))/GYRO_FCT;
-			msg_imu_raw_.angular_velocity.y=((double)ntohs(imu_data.imu.GyroscopeDataY))/GYRO_FCT;
-			msg_imu_raw_.angular_velocity.z=((double)ntohs(imu_data.imu.GyroscopeDataZ))/GYRO_FCT;
+			msg_imu_raw_.linear_acceleration.x=((double)(imu_data.imu.AccelerationDataX))/ACCEL_FCT;
+			msg_imu_raw_.linear_acceleration.y=((double)(imu_data.imu.AccelerationDataY))/ACCEL_FCT;
+			msg_imu_raw_.linear_acceleration.z=((double)(imu_data.imu.AccelerationDataZ))/ACCEL_FCT;
+			msg_imu_raw_.angular_velocity.x=((double)(imu_data.imu.GyroscopeDataX))/GYRO_FCT;
+			msg_imu_raw_.angular_velocity.y=((double)(imu_data.imu.GyroscopeDataY))/GYRO_FCT;
+			msg_imu_raw_.angular_velocity.z=((double)(imu_data.imu.GyroscopeDataZ))/GYRO_FCT;
 
 			//IMU filtered
 			msg_imu_.header.stamp=ros::Time::now();
-			msg_imu_.linear_acceleration.x=((double)ntohs(imu_data.imu.LinearAccelerationDataX))/ACCEL_FCT;
-			msg_imu_.linear_acceleration.y=((double)ntohs(imu_data.imu.LinearAccelerationDataY))/ACCEL_FCT;
-			msg_imu_.linear_acceleration.z=((double)ntohs(imu_data.imu.LinearAccelerationDataZ))/ACCEL_FCT;
-			msg_imu_.angular_velocity.x=((double)ntohs(imu_data.imu.GyroscopeDataX))/GYRO_FCT;
-			msg_imu_.angular_velocity.y=((double)ntohs(imu_data.imu.GyroscopeDataY))/GYRO_FCT;
-			msg_imu_.angular_velocity.z=((double)ntohs(imu_data.imu.GyroscopeDataZ))/GYRO_FCT;
-			msg_imu_.orientation.x=((double)ntohs(imu_data.imu.QuaternionxData));
-			msg_imu_.orientation.y=((double)ntohs(imu_data.imu.QuaternionyData));
-			msg_imu_.orientation.z=((double)ntohs(imu_data.imu.QuaternionzData));
-			msg_imu_.orientation.w=((double)ntohs(imu_data.imu.QuaternionwData));
+			msg_imu_.linear_acceleration.x=((double)(imu_data.imu.LinearAccelerationDataX))/ACCEL_FCT;
+			msg_imu_.linear_acceleration.y=((double)(imu_data.imu.LinearAccelerationDataY))/ACCEL_FCT;
+			msg_imu_.linear_acceleration.z=((double)(imu_data.imu.LinearAccelerationDataZ))/ACCEL_FCT;
+			msg_imu_.angular_velocity.x=((double)(imu_data.imu.GyroscopeDataX))/GYRO_FCT;
+			msg_imu_.angular_velocity.y=((double)(imu_data.imu.GyroscopeDataY))/GYRO_FCT;
+			msg_imu_.angular_velocity.z=((double)(imu_data.imu.GyroscopeDataZ))/GYRO_FCT;
+			msg_imu_.orientation.x=((double)(imu_data.imu.QuaternionxData));
+			msg_imu_.orientation.y=((double)(imu_data.imu.QuaternionyData));
+			msg_imu_.orientation.z=((double)(imu_data.imu.QuaternionzData));
+			msg_imu_.orientation.w=((double)(imu_data.imu.QuaternionwData));
 
 			//Magnetometer
 			msg_mag_.header.stamp=ros::Time::now();
-			msg_mag_.magnetic_field.x=((double)ntohs(imu_data.imu.MagnetometerDataX))/MAG_FCT;
-			msg_mag_.magnetic_field.y=((double)ntohs(imu_data.imu.MagnetometerDataY))/MAG_FCT;
-			msg_mag_.magnetic_field.z=((double)ntohs(imu_data.imu.MagnetometerDataZ))/MAG_FCT;
+			msg_mag_.magnetic_field.x=((double)(imu_data.imu.MagnetometerDataX))/MAG_FCT;
+			msg_mag_.magnetic_field.y=((double)(imu_data.imu.MagnetometerDataY))/MAG_FCT;
+			msg_mag_.magnetic_field.z=((double)(imu_data.imu.MagnetometerDataZ))/MAG_FCT;
 
 			//Temperature
 			msg_temperature_.header.stamp=ros::Time::now();
