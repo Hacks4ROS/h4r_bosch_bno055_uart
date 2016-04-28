@@ -204,32 +204,32 @@ private:
 		{
 			struct
 			{
-				uint16_t AccelerationDataX;//0 1
-				uint16_t AccelerationDataY;//2 3
-				uint16_t AccelerationDataZ;//4 5
-				uint16_t MagnetometerDataX;//6 7
-				uint16_t MagnetometerDataY;//8 9
-				uint16_t MagnetometerDataZ;//10 11
-				uint16_t GyroscopeDataX;//12 13
-				uint16_t GyroscopeDataY;//14 15
-				uint16_t GyroscopeDataZ;//16 17
-				uint16_t HeadingData;//18 19
-				uint16_t RollData;//20 21
-				uint16_t PitchData;//22 23
-				uint16_t QuaternionwData;// 24 25
-				uint16_t QuaternionxData;// 26 27
-				uint16_t QuaternionyData;// 28 29
-				uint16_t QuaternionzData;// 30 31
-				uint16_t LinearAccelerationDataX;//32 33
-				uint16_t LinearAccelerationDataY;//34 35
-				uint16_t LinearAccelerationDataZ;//36 37
-				uint16_t GravityVectorDataX;//38 39
-				uint16_t GravityVectorDataY;//40 41
-				uint16_t GravityVectorDataZ;//42 43
+				int16_t AccelerationDataX;//0 1
+				int16_t AccelerationDataY;//2 3
+				int16_t AccelerationDataZ;//4 5
+				int16_t MagnetometerDataX;//6 7
+				int16_t MagnetometerDataY;//8 9
+				int16_t MagnetometerDataZ;//10 11
+				int16_t GyroscopeDataX;//12 13
+				int16_t GyroscopeDataY;//14 15
+				int16_t GyroscopeDataZ;//16 17
+				int16_t HeadingData;//18 19
+				int16_t RollData;//20 21
+				int16_t PitchData;//22 23
+				int16_t QuaternionwData;// 24 25
+				int16_t QuaternionxData;// 26 27
+				int16_t QuaternionyData;// 28 29
+				int16_t QuaternionzData;// 30 31
+				int16_t LinearAccelerationDataX;//32 33
+				int16_t LinearAccelerationDataY;//34 35
+				int16_t LinearAccelerationDataZ;//36 37
+				int16_t GravityVectorDataX;//38 39
+				int16_t GravityVectorDataY;//40 41
+				int16_t GravityVectorDataZ;//42 43
 			}imu;
 			uint16_t nthos_array[22];
 		};
-		uint8_t temperature;
+		int8_t temperature;
 		uint8_t calibration_status;
 	}ImuData;
 
