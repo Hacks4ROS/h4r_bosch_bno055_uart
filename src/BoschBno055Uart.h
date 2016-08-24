@@ -16,6 +16,8 @@
 #include <sensor_msgs/Imu.h>
 #include <sensor_msgs/MagneticField.h>
 #include <sensor_msgs/Temperature.h>
+#include <std_msgs/ByteMultiArray.h>
+
 
 namespace h4r_bosch_bno055_uart
 {
@@ -243,26 +245,21 @@ private:
 	sensor_msgs::Imu msg_imu_raw_;
 	sensor_msgs::MagneticField msg_mag_;
 	sensor_msgs::Temperature msg_temperature_;
+	std_msgs::ByteMultiArray msg_calib_;
+
 	serial::Serial serial_;
 	serial::Timeout serial_timeout_;
-
-
 
 	ros::Publisher pub_imu_;
 	ros::Publisher pub_imu_raw_;
 	ros::Publisher pub_mag_;
 	ros::Publisher pub_temp_;
-
-
+	ros::Publisher pub_calibstate_;
 
 	bool writeIMU(BNO055Register reg,const void *data, unsigned length);
 	bool writeIMUByte(BNO055Register reg, uint8_t byte){return writeIMU(reg,&byte,1);}
 
 	bool readIMU(BNO055Register reg, uint8_t *data, unsigned length);
-
-
-
-
 
 public:
 	BoschBno055Uart();

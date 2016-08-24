@@ -28,6 +28,7 @@ BoschBno055Uart::BoschBno055Uart()
 ,pub_imu_raw_(nh_.advertise<sensor_msgs::Imu>("data_raw",1,false))
 ,pub_mag_(nh_.advertise<sensor_msgs::MagneticField>("mag",1,false))
 ,pub_temp_(nh_.advertise<sensor_msgs::Temperature>("temp",1,false))
+,pub_calibstate_(nh_.advertise<std_msgs::ByteMultiArray>("calib",1,false))
 {
   nh_.param("rate", rate_, 10.0);
   std::string frame_id="/bosch_imu";
@@ -178,10 +179,16 @@ int BoschBno055Uart::run()
 			msg_temperature_.header.stamp=ros::Time::now();
 			msg_temperature_.temperature=imu_data.temperature;
 
+			msg_calib_.data.push_back(imu_data.calibration_status & 0x3);//MAG
+			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<2);//ACC
+			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<4);//GYR
+			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<6);//SYS
+
 			pub_imu_.publish(msg_imu_);
 			pub_imu_raw_.publish(msg_imu_raw_);
 			pub_mag_.publish(msg_mag_);
 			pub_temp_.publish(msg_temperature_);
+			pub_calibstate_.publish(msg_calib_);
 		}
 		else
 		{
