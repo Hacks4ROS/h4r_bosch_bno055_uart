@@ -180,9 +180,9 @@ int BoschBno055Uart::run()
 			msg_temperature_.temperature=imu_data.temperature;
 
 			msg_calib_.data.push_back(imu_data.calibration_status & 0x3);//MAG
-			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<2);//ACC
-			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<4);//GYR
-			msg_calib_.data.push_back(imu_data.calibration_status & 0x3<<6);//SYS
+			msg_calib_.data.push_back((imu_data.calibration_status & 0x3<<2)>>2);//ACC
+			msg_calib_.data.push_back((imu_data.calibration_status & 0x3<<4)>>4);//GYR
+			msg_calib_.data.push_back((imu_data.calibration_status & 0x3<<6)>>6);//SYS
 
 			pub_imu_.publish(msg_imu_);
 			pub_imu_raw_.publish(msg_imu_raw_);
